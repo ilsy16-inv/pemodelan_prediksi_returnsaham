@@ -237,7 +237,7 @@ with st.sidebar:
 
     st.markdown('<div class="sidebar-section">', unsafe_allow_html=True)
     st.markdown("**📅 Rentang Tanggal**")
-    rentang = st.date_input("", value=(tgl_min, tgl_max),
+    rentang = st.date_input("Rentang Tanggal", value=(tgl_min, tgl_max),
                             min_value=tgl_min, max_value=tgl_max,
                             label_visibility="collapsed")
     st.markdown('</div>', unsafe_allow_html=True)
@@ -363,8 +363,7 @@ with tab1:
                 name=kode, mode="lines",
                 line=dict(color=WARNA.get(kode,"#888"), width=2),
                 fill="tozeroy",
-                fillcolor=WARNA.get(kode,"#888").replace(")",",0.08)").replace("rgb","rgba") \
-                    if "rgb" in WARNA.get(kode,"") else WARNA.get(kode,"#888")+"15",
+                fillcolor="rgba(99,102,241,0.08)",
                 hovertemplate=f"<b>{kode}</b><br>%{{x|%b %Y}}<br>Vol: %{{y:.4f}}<extra></extra>",
             ))
         fig_area.update_layout(**PLOTLY_TEMPLATE["layout"], height=320,
@@ -443,7 +442,7 @@ with tab2:
             x=df_e2["Tanggal"], y=df_e2["Close"],
             name="Close", line=dict(color=warna2, width=1.5),
             fill="tozeroy",
-            fillcolor=warna2+"20",
+            fillcolor=f"rgba({int(warna2.lstrip('#')[0:2],16)},{int(warna2.lstrip('#')[2:4],16)},{int(warna2.lstrip('#')[4:6],16)},0.08)",
             hovertemplate="Rp %{y:,.0f}<extra></extra>",
         ), row=1, col=1)
 
@@ -458,7 +457,7 @@ with tab2:
         fig3.add_trace(go.Scatter(
             x=df_e2["Tanggal"], y=df_e2["Volatilitas"],
             name="Volatilitas", line=dict(color="#f59e0b", width=1.5),
-            fill="tozeroy", fillcolor="#f59e0b18",
+            fill="tozeroy", fillcolor="rgba(245,158,11,0.09)",
             hovertemplate="%{y:.5f}<extra></extra>",
         ), row=3, col=1)
         fig3.add_hline(y=df_e2["Volatilitas"].mean(), row=3, col=1,
@@ -479,7 +478,7 @@ with tab2:
             fig_rsi.add_trace(go.Scatter(
                 x=df_e2["Tanggal"], y=df_e2["RSI"],
                 line=dict(color=warna2, width=1.5), name="RSI",
-                fill="tozeroy", fillcolor=warna2+"15"))
+                fill="tozeroy", fillcolor=f"rgba({int(warna2.lstrip('#')[0:2],16)},{int(warna2.lstrip('#')[2:4],16)},{int(warna2.lstrip('#')[4:6],16)},0.08)"))
             fig_rsi.add_hline(y=70, line_dash="dash", line_color="#ef4444",
                                annotation_text="Overbought", annotation_font_color="#ef4444")
             fig_rsi.add_hline(y=30, line_dash="dash", line_color="#10b981",
